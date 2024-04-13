@@ -1,0 +1,47 @@
+1. ¿Cuántos restaurantes pertenecen a la ciudad (borough) de “Queens”?
+
+db.getCollection('restaurants').countDocuments({ borough: 'Queens' });
+
+2. ¿Cuántos restaurantes tienen el código postal 11374?
+
+db.getCollection('restaurants').countDocuments({ 'address.zipcode': 
+'11374' });
+
+3. ¿Cuántos restaurantes son del tipo “American” o “Bakery”?
+
+db.getCollection('restaurants').countDocuments({ $or: [ { cuisine: 
+'Bakery' }, { cuisine: 'American' } ] });
+
+
+4. ¿Cuántos nombres de restaurantes empiezan con la letra A”?
+
+db.getCollection('restaurants').countDocuments({ name: { $regex: '^A' } 
+});
+
+5. ¿Cuáles son los nombres de las 10 empresas más antiguas?
+
+db.getCollection('companies').find( { founded_year: { $ne: null } }, { 
+_id: 0, name: 1, founded_year: 1 } ).sort({ founded_year: 1 }).limit(10);
+
+6. ¿Cuántas empresas se fundaron durante o después del año 2000?
+
+db.getCollection('companies').countDocuments({ founded_year: { $gte: 
+2000 } });
+
+7. ¿Cuántas empresas tienen entre 500 y 1000 empleados/as?
+
+db.getCollection('companies').countDocuments({ number_of_employees: { 
+$gte: 500, $lte: 1000 } });
+
+
+8. ¿Cuántas empresas no tienen productos informados?
+
+db.getCollection('companies').countDocuments({ products: { $size: 0 } });
+
+9. ¿En cuántos mails aparecen las palabras “Wall Street Journal” en el asunto del correo?
+
+db.getCollection('mails').countDocuments({ subject: { $regex: 'Wall 
+
+10. ¿Cuántos correos tienen como remitente un correo con dominio @enron.com?
+db.getCollection('mails').countDocuments({ sender: { $regex: 
+'@enron\\.com$', $options: 'i' } });
