@@ -43,5 +43,6 @@ db.getCollection('companies').countDocuments({ products: { $size: 0 } });
 db.getCollection('mails').countDocuments({ subject: { $regex: 'Wall 
 
 10. ¿Cuántos correos tienen como remitente un correo con dominio @enron.com?
+
 db.getCollection('mails').countDocuments({ sender: { $regex: 
 '@enron\\.com$', $options: 'i' } });
